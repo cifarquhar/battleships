@@ -22,15 +22,15 @@ body {
   display         : flex;
   justify-content : space-between;
   
-  width   : 400px;
-  height  : 400px;
+  width   : 450px;
+  height  : 430px;
   padding : 5px;
   border  : 1px solid black;
 }
   
   .row {
     display         : flex;
-    flex-direction  : row;
+    flex-direction  : column;
     /*justify-content : space-between;*/
   }
   
