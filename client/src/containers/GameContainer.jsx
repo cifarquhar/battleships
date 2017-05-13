@@ -16,6 +16,8 @@ class GameContainer extends React.Component{
     this.socket.on('connect', () => {
       this.setState({socket: this.socket.id})
     })
+
+    this.socket.on('guessMade', this.respondToGuess.bind(this))
   }
 
 
@@ -28,6 +30,19 @@ class GameContainer extends React.Component{
 
   targetGridClickHandler(){
     console.log("target grid clicked")
+
+    let packetToSend = {id: this.state.socket, coords: this.state.coords}
+
+    this.socket.emit('guessMade', packetToSend)
+  }
+
+
+  respondToGuess(packet){
+
+    if (packet.id !== this.socket.id){
+
+    console.log("guess from socket",packet.id,"received at socket",this.socket.id)
+  }
   }
 
 
@@ -40,6 +55,7 @@ class GameContainer extends React.Component{
       <div className="container-div">
         <div className="primary-board-div">
           <Board
+          id = {this.state.socket}
           type="primary"
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
@@ -47,6 +63,7 @@ class GameContainer extends React.Component{
         </div>
         <div className="tracking-board-div">
           <Board
+          id = {this.state.socket}
           type="tracking"
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}

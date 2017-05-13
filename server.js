@@ -14,6 +14,10 @@ io.on('connection', function(socket){
 
   console.log("user connected")
 
+  socket.on('guessMade', (packet) => {
+      io.sockets.emit('guessMade', packet)
+    })
+
   socket.on("disconnect", function(socket){
     console.log("user disconnected")
   })

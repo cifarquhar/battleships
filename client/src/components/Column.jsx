@@ -17,6 +17,7 @@ class Column extends React.Component{
     const squares = squareValues.map((element,index) => {
       return(
         <Square
+        id = {this.props.socket}
         type={this.props.type}
         columnName = {this.props.columnName}
         squareNumber = {index + 1}

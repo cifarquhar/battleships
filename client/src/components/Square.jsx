@@ -5,6 +5,7 @@ class Square extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      id: this.props.socket,
       coords: {
         column: this.props.columnName,
         row: this.props.squareNumber
@@ -22,7 +23,7 @@ class Square extends React.Component{
       this.setState({className: "boatSquare"})
     }
     else if (this.props.type === "tracking"){
-      console.log("square",this.props.columnName,this.props.squareNumber,"clicked")
+      console.log("square",this.state.coords.column,this.state.coords.row,"clicked")
     }
   }
 

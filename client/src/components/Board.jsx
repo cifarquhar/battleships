@@ -19,6 +19,7 @@ class Board extends React.Component{
     const columns = columnNames.map((element,index) => {
       return(
         <Column
+        id = {this.props.socket}
         type={this.props.type}
         columnName = {element}
         key = {index}
