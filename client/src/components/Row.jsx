@@ -20,6 +20,7 @@ class Row extends React.Component{
         squareNumber = {index + 1}
         value = {element}
         key = {index}
+        filledSquares={this.props.filledSquares}
         increaseFilledSquares = {this.props.increaseFilledSquares.bind(this)}
         />
       )

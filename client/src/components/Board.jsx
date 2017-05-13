@@ -6,16 +6,11 @@ class Board extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      filledSquares: 0
+      
     }
   }
 
-  increaseFilledSquares(){
-    console.log(this.state.filledSquares)
-    if (this.state.filledSquares < 17) {
-      this.setState({filledSquares: this.state.filledSquares + 1})
-    }
-  }
+
 
   render(){
 
@@ -26,7 +21,8 @@ class Board extends React.Component{
         <Row
         rowName = {element}
         key = {index}
-        increaseFilledSquares = {this.increaseFilledSquares.bind(this)}
+        filledSquares={this.props.filledSquares}
+        increaseFilledSquares = {this.props.increaseFilledSquares.bind(this)}
         />
       )
     })
