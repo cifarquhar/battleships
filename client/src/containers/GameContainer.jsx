@@ -10,7 +10,9 @@ class GameContainer extends React.Component{
       primarySquares: [],
       targetSquares: [],
       socket: null,
-      filledSquares: 0
+      filledSquares: 0,
+      guessedSquare: null,
+      targetedSquare: null
     }
 
     this.socket = io("http://localhost:3000")
@@ -30,10 +32,22 @@ class GameContainer extends React.Component{
     console.log("primary grid clicked")
   }
 
+
+  setGuessedSquare(square){
+    this.setState({guessedSquare: square})
+  }
+
+  setTargetSquare(square){
+    this.setState({targetedSquare: square})
+  }
+
   targetGridClickHandler(){
     console.log("target grid clicked")
 
-    let packetToSend = {id: this.state.socket, coords: this.state.coords}
+    console.log(this)
+    console.log(this.state.guessedSquare)
+
+    let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
 
     this.socket.emit('guessMade', packetToSend)
   }
@@ -42,6 +56,14 @@ class GameContainer extends React.Component{
   respondToGuess(packet){
 
     if (packet.id !== this.socket.id){
+
+      console.log(packet.coords)
+
+    let targetedSquare = this.state.primarySquares.find((square) => {
+      return square.coords == packet.coords
+    })
+
+    console.log(targetedSquare)
 
     console.log("guess from socket",packet.id,"received at socket",this.socket.id)
   }
@@ -68,6 +90,7 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
+          setSubjectSquare = {this.setTargetSquare.bind(this)}
           />
         </div>
         <div className="tracking-board-div">
@@ -78,6 +101,7 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
+          setSubjectSquare = {this.setGuessedSquare.bind(this)}
           />
         </div>
       </div>

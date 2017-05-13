@@ -17,6 +17,7 @@ class Square extends React.Component{
   }
 
   handleClick(){
+    this.props.setSubjectSquare(this)
     this.props.clickHandler()
     if ((!this.state.full && this.props.filledSquares < 17) && this.props.type === "primary"){
       this.setState({full: true})
