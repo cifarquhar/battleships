@@ -27,7 +27,6 @@ class Column extends React.Component{
         filledSquares={this.props.filledSquares}
         clickHandler = {this.props.clickHandler.bind(this)}
         addSquare={this.props.addSquare.bind(this)}
-        setSubjectSquare = {this.props.setSubjectSquare.bind(this)}
         />
       )
     })

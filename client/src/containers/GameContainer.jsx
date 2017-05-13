@@ -33,23 +33,14 @@ class GameContainer extends React.Component{
   }
 
 
-  setGuessedSquare(square){
-    this.setState({guessedSquare: square})
-  }
 
-  setTargetSquare(square){
-    this.setState({targetedSquare: square})
-  }
+  targetGridClickHandler(square){
 
-  targetGridClickHandler(){
-    console.log("target grid clicked")
-
-    console.log(this)
-    console.log(this.state.guessedSquare)
-
-    let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
-
-    this.socket.emit('guessMade', packetToSend)
+    this.setState({guessedSquare: square}, () => {
+      let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
+        this.socket.emit('guessMade', packetToSend)
+       })
+  
   }
 
 
@@ -90,7 +81,6 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
-          setSubjectSquare = {this.setTargetSquare.bind(this)}
           />
         </div>
         <div className="tracking-board-div">
@@ -101,7 +91,6 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
-          setSubjectSquare = {this.setGuessedSquare.bind(this)}
           />
         </div>
       </div>
