@@ -48,6 +48,20 @@ body {
     background-color: #088DA5;
   }
 
+  .trackingSquare {
+    display : block;
+    width   : 20px;
+    height  : 20px;
+    border  : 1px solid black;
+    
+    color       : black;
+    font-size   : 5em;
+    font-weight : 100;
+    text-align  : center;
+    padding     : 20px;
+    background-color: #DAA520;
+  }
+
   .boatSquare {
     display : block;
     width   : 20px;

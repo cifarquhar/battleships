@@ -6,7 +6,7 @@ class Square extends React.Component{
     super(props)
     this.state = {
       full: false,
-      className: "seaSquare"
+      className: null
     }
   }
 
@@ -15,6 +15,15 @@ class Square extends React.Component{
       this.props.increaseFilledSquares()
       this.setState({full: true})
       this.setState({className: "boatSquare"})
+    }
+  }
+
+  componentWillMount(){
+    if (this.props.type === "primary"){
+      this.setState({className: "seaSquare"})
+    }
+    else if (this.props.type === "tracking"){
+      this.setState({className: "trackingSquare"})
     }
   }
 
