@@ -17,6 +17,7 @@ class Row extends React.Component{
     const squares = squareValues.map((element,index) => {
       return(
         <Square
+        type={this.props.type}
         squareNumber = {index + 1}
         value = {element}
         key = {index}
