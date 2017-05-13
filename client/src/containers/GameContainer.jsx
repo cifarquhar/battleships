@@ -27,10 +27,20 @@ class GameContainer extends React.Component{
   render(){
     return(
       <div className="container-div">
-        <Board
-        filledSquares={this.state.filledSquares}
-        increaseFilledSquares={this.increaseFilledSquares.bind(this)}
-        />
+        <div className="primary-board-div">
+          <Board
+          type="primary"
+          filledSquares={this.state.filledSquares}
+          increaseFilledSquares={this.increaseFilledSquares.bind(this)}
+          />
+        </div>
+        <div className="tracking-board-div">
+          <Board
+          type="tracking"
+          filledSquares={this.state.filledSquares}
+          increaseFilledSquares={this.increaseFilledSquares.bind(this)}
+          />
+        </div>
       </div>
     )
   }
