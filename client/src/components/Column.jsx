@@ -23,7 +23,7 @@ class Column extends React.Component{
         value = {element}
         key = {index}
         filledSquares={this.props.filledSquares}
-        increaseFilledSquares = {this.props.increaseFilledSquares.bind(this)}
+        clickHandler = {this.props.clickHandler.bind(this)}
         />
       )
     })

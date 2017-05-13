@@ -19,6 +19,17 @@ class GameContainer extends React.Component{
   }
 
 
+  primaryGridClickHandler(){
+    if (this.state.filledSquares < 17){
+    this.increaseFilledSquares()
+  }
+    console.log("primary grid clicked")
+  }
+
+  targetGridClickHandler(){
+    console.log("target grid clicked")
+  }
+
 
   increaseFilledSquares(){
     this.setState({filledSquares: this.state.filledSquares + 1})
@@ -31,14 +42,14 @@ class GameContainer extends React.Component{
           <Board
           type="primary"
           filledSquares={this.state.filledSquares}
-          increaseFilledSquares={this.increaseFilledSquares.bind(this)}
+          clickHandler={this.primaryGridClickHandler.bind(this)}
           />
         </div>
         <div className="tracking-board-div">
           <Board
           type="tracking"
           filledSquares={this.state.filledSquares}
-          increaseFilledSquares={this.increaseFilledSquares.bind(this)}
+          clickHandler={this.targetGridClickHandler.bind(this)}
           />
         </div>
       </div>
