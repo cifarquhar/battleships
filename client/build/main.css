@@ -8,8 +8,8 @@ html, body {
 
 body {
   display         : flex;
-  align-items     : center;
-  justify-content : center;
+  /*align-items     : center;*/
+  /*justify-content : center;*/
   vertical-align  : center;
   flex-wrap       : wrap;
   align-content   : center;
