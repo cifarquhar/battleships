@@ -5,8 +5,13 @@ class Square extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      coords: {
+        column: this.props.columnName,
+        row: this.props.squareNumber
+      },
       full: false,
-      className: null
+      className: null,
+      targeted: null
     }
   }
 
@@ -15,6 +20,9 @@ class Square extends React.Component{
       this.props.increaseFilledSquares()
       this.setState({full: true})
       this.setState({className: "boatSquare"})
+    }
+    else if (this.props.type === "tracking"){
+      console.log("square",this.props.columnName,this.props.squareNumber,"clicked")
     }
   }
 

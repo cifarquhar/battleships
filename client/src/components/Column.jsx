@@ -1,7 +1,7 @@
 import React from "react"
 import Square from "./Square"
 
-class Row extends React.Component{
+class Column extends React.Component{
 
   constructor(props){
     super(props)
@@ -18,6 +18,7 @@ class Row extends React.Component{
       return(
         <Square
         type={this.props.type}
+        columnName = {this.props.columnName}
         squareNumber = {index + 1}
         value = {element}
         key = {index}
@@ -28,7 +29,7 @@ class Row extends React.Component{
     })
 
     return(
-      <div className="row">
+      <div className="column">
       {squares}
       </div>
     )
@@ -40,4 +41,4 @@ class Row extends React.Component{
 
 }
 
-export default Row
+export default Column

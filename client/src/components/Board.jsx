@@ -1,5 +1,5 @@
 import React from "react"
-import Row from "./Row"
+import Column from "./Column"
 
 class Board extends React.Component{
 
@@ -14,13 +14,13 @@ class Board extends React.Component{
 
   render(){
 
-    const rowNames = ["A","B","C","D","E","F","G","H","I","J"]
+    const columnNames = ["A","B","C","D","E","F","G","H","I","J"]
 
-    const rows = rowNames.map((element,index) => {
+    const columns = columnNames.map((element,index) => {
       return(
-        <Row
+        <Column
         type={this.props.type}
-        rowName = {element}
+        columnName = {element}
         key = {index}
         filledSquares={this.props.filledSquares}
         increaseFilledSquares = {this.props.increaseFilledSquares.bind(this)}
@@ -31,7 +31,7 @@ class Board extends React.Component{
 
     return(
       <div className="board">
-        {rows}
+        {columns}
       </div>
     )
   }

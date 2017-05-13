@@ -28,7 +28,7 @@ body {
   border  : 1px solid black;
 }
   
-  .row {
+  .column {
     display         : flex;
     flex-direction  : column;
     /*justify-content : space-between;*/
