@@ -7,6 +7,8 @@ class GameContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      primarySquares: [],
+      targetSquares: [],
       socket: null,
       filledSquares: 0
     }
@@ -46,6 +48,11 @@ class GameContainer extends React.Component{
   }
 
 
+
+  addSquareToArray(square,array){
+    array.push(square)
+  }
+
   increaseFilledSquares(){
     this.setState({filledSquares: this.state.filledSquares + 1})
   }
@@ -57,16 +64,20 @@ class GameContainer extends React.Component{
           <Board
           id = {this.state.socket}
           type="primary"
+          squareArray={this.state.primarySquares}
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
+          addSquare={this.addSquareToArray.bind(this)}
           />
         </div>
         <div className="tracking-board-div">
           <Board
           id = {this.state.socket}
           type="tracking"
+          squareArray={this.state.targetSquares}
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}
+          addSquare={this.addSquareToArray.bind(this)}
           />
         </div>
       </div>

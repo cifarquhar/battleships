@@ -36,6 +36,10 @@ class Square extends React.Component{
     }
   }
 
+  componentDidMount(){
+    this.props.addSquare(this,this.props.squareArray)
+  }
+
   render(){
     return(
       <span className={this.state.className}

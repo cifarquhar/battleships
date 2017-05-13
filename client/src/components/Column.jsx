@@ -23,8 +23,10 @@ class Column extends React.Component{
         squareNumber = {index + 1}
         value = {element}
         key = {index}
+        squareArray = {this.props.squareArray}
         filledSquares={this.props.filledSquares}
         clickHandler = {this.props.clickHandler.bind(this)}
+        addSquare={this.props.addSquare.bind(this)}
         />
       )
     })

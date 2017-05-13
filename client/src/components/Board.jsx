@@ -23,8 +23,10 @@ class Board extends React.Component{
         type={this.props.type}
         columnName = {element}
         key = {index}
+        squareArray = {this.props.squareArray}
         filledSquares={this.props.filledSquares}
         clickHandler = {this.props.clickHandler.bind(this)}
+        addSquare={this.props.addSquare.bind(this)}
         />
       )
     })
