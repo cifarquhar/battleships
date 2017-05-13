@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var path = require('path')
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
@@ -8,10 +10,18 @@ app.get('/', function (req, res) {
 
 app.use(express.static('client/build'));
 
+io.on('connection', function(socket){
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+  console.log("user connected")
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  socket.on("disconnect", function(socket){
+    console.log("user disconnected")
+  })
+
+});
+
+
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
