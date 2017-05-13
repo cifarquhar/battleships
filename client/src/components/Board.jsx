@@ -19,6 +19,7 @@ class Board extends React.Component{
     const rows = rowNames.map((element,index) => {
       return(
         <Row
+        type={this.props.type}
         rowName = {element}
         key = {index}
         filledSquares={this.props.filledSquares}
