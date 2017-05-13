@@ -11,7 +11,7 @@ class Square extends React.Component{
   }
 
   handleClick(){
-    if (!this.state.full && this.props.filledSquares < 17){
+    if ((!this.state.full && this.props.filledSquares < 17) && this.props.type === "primary"){
       this.props.increaseFilledSquares()
       this.setState({full: true})
       this.setState({className: "boatSquare"})
