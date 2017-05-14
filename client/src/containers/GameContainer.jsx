@@ -9,6 +9,7 @@ class GameContainer extends React.Component{
     this.state = {
       primarySquares: [],
       targetSquares: [],
+      previousGuesses: [],
       socket: null,
       filledSquares: 0,
       guessedSquare: null,
@@ -36,12 +37,18 @@ class GameContainer extends React.Component{
 
 
   targetGridClickHandler(square){
+    if (!this.state.previousGuesses.includes(square)){
 
     this.setState({guessedSquare: square}, () => {
       let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
+
+        let newPreviousGuesses = this.state.previousGuesses
+        newPreviousGuesses.push(square)
+        this.setState({previousGuesses: newPreviousGuesses})
+
         this.socket.emit('guessMade', packetToSend)
        })
-  
+    }
   }
 
 
@@ -56,10 +63,12 @@ class GameContainer extends React.Component{
     })
 
       if (this.state.targetedSquare.state.full){
-        this.socket.emit('guessResponse', "hit")
+        let packetToSend = {id: this.state.socket, response: "hit"}
+        this.socket.emit('guessResponse', packetToSend)
       }
       else if (!this.state.targetedSquare.state.full){
-        this.socket.emit('guessResponse', "miss")
+        let packetToSend = {id: this.state.socket, response: "miss"}
+        this.socket.emit('guessResponse', packetToSend)
       }
 
       console.log(this.state.targetedSquare)
@@ -68,14 +77,17 @@ class GameContainer extends React.Component{
     }
   }
 
-  processResponse(response){
-    if (response === "hit"){
+  processResponse(packet){
+
+    if (packet.id !== this.socket.id){
+    if (packet.response === "hit"){
       console.log("Hit!")
     }
-    else if (response === "miss"){
+    else if (packet.response === "miss"){
       console.log("Miss!")
     }
   }
+}
 
 
 
