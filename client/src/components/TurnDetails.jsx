@@ -10,11 +10,13 @@ class TurnDetails extends React.Component{
   }
 
   setPlayer(){
-    if (this.props.thisPlayerTurn){
-      this.setState({message: "Your turn"})
-    }
-    else{
-      this.setState({message: "Opponent's turn"})
+    if (this.props.playerTurn !== ""){
+      if (this.props.playerTurn){
+        this.setState({message: "Your turn"})
+      }
+      else{
+        this.setState({message: "Opponent's turn"})
+      }
     }
   }
 

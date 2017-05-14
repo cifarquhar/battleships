@@ -298,11 +298,11 @@ class GameContainer extends React.Component{
   render(){
     return(
       <div className="container-div">
-        <TurnDetails playerTurn={this.state.thisPlayerTurn}/>
         <div className="primary-board-div">
           <Board
           id = {this.state.socket}
           type="primary"
+          playerTurn={this.state.thisPlayerTurn}
           squareArray={this.state.primarySquares}
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
@@ -320,6 +320,7 @@ class GameContainer extends React.Component{
           <Board
           id = {this.state.socket}
           type="tracking"
+          playerTurn={this.state.thisPlayerTurn}
           squareArray={this.state.targetSquares}
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}
