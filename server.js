@@ -22,6 +22,10 @@ io.on('connection', function(socket){
       io.sockets.emit('guessResponse', packet)
     })
 
+  socket.on('readyNotification', (packet) => {
+      io.sockets.emit('readyNotification', packet)
+    })
+
   socket.on("disconnect", function(socket){
     console.log("user disconnected")
   })

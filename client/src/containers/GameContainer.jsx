@@ -33,6 +33,7 @@ class GameContainer extends React.Component{
 
     this.socket.on('guessMade', this.respondToGuess.bind(this))
     this.socket.on('guessResponse', this.processResponse.bind(this))
+    this.socket.on('readyNotification', this.processNotification.bind(this))
   }
 
 
@@ -247,7 +248,18 @@ class GameContainer extends React.Component{
     console.log("checking")
     if (this.state.shipsToPlace.length === 0){
       console.log("player ready")
-      this.setState({playerReady: true})
+      this.setState({playerReady: true}, () => {
+      let packetToSend = {id: this.state.socket, playerStatus: "ready"}
+        this.socket.emit('readyNotification', packetToSend)
+       })
+    }
+  }
+
+  processNotification(packet){
+    if (packet.id !== this.socket.id){
+      if (packet.playerStatus === "ready"){
+        this.setState({opponentReady: true})
+      }
     }
   }
 
