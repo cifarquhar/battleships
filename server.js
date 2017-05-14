@@ -18,6 +18,10 @@ io.on('connection', function(socket){
       io.sockets.emit('guessMade', packet)
     })
 
+  socket.on('guessResponse', (packet) => {
+      io.sockets.emit('guessResponse', packet)
+    })
+
   socket.on("disconnect", function(socket){
     console.log("user disconnected")
   })

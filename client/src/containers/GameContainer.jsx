@@ -22,6 +22,7 @@ class GameContainer extends React.Component{
     })
 
     this.socket.on('guessMade', this.respondToGuess.bind(this))
+    this.socket.on('guessResponse', this.processResponse.bind(this))
   }
 
 
@@ -48,16 +49,32 @@ class GameContainer extends React.Component{
 
     if (packet.id !== this.socket.id){
 
-    this.state.primarySquares.find((square) => {
-     if ((square.state.coords.column === packet.coords.column) && (square.state.coords.row === packet.coords.row)){
-      this.setState({targetedSquare: square})
-     }
+      this.state.primarySquares.find((square) => {
+       if ((square.state.coords.column === packet.coords.column) && (square.state.coords.row === packet.coords.row)){
+        this.setState({targetedSquare: square})
+      }
     })
 
-    console.log(this.state.targetedSquare)
+      if (this.state.targetedSquare.state.full){
+        this.socket.emit('guessResponse', "hit")
+      }
+      else if (!this.state.targetedSquare.state.full){
+        this.socket.emit('guessResponse', "miss")
+      }
 
-    console.log("guess from socket",packet.id,"received at socket",this.socket.id)
+      console.log(this.state.targetedSquare)
+
+      console.log("guess from socket",packet.id,"received at socket",this.socket.id)
+    }
   }
+
+  processResponse(response){
+    if (response === "hit"){
+      console.log("Hit!")
+    }
+    else if (response === "miss"){
+      console.log("Miss!")
+    }
   }
 
 
