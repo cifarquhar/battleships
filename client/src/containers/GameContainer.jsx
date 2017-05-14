@@ -2,6 +2,7 @@ import React from "react"
 import Board from "../components/Board"
 import io from 'socket.io-client';
 import TurnDetails from "../components/TurnDetails"
+import ShipValidation from "../components/ShipValidation"
 
 class GameContainer extends React.Component{
 
@@ -9,6 +10,8 @@ class GameContainer extends React.Component{
     super(props)
     this.state = {
       player1Turn: true,
+      shipsToPlace: [5,4,3,3,2],
+      currentShipPlacementSquares: [],
       primarySquares: [],
       targetSquares: [],
       previousGuesses: [],
@@ -16,7 +19,8 @@ class GameContainer extends React.Component{
       filledSquares: 0,
       guessedSquare: null,
       targetedSquare: null,
-      hitCount: 0
+      hitCount: 0,
+      validationMessage: ""
     }
 
     this.socket = io("http://localhost:3000")
@@ -108,6 +112,123 @@ class GameContainer extends React.Component{
     this.setState({filledSquares: this.state.filledSquares + 1})
   }
 
+  checkSquaresInSameRow(squares){
+
+    let rowChecks = []
+
+    for (var i=0; i < squares.length - 1; i++){
+      if (squares[i].state.coords.row === squares[i+1].state.coords.row){
+        rowChecks.push(true)
+      }
+      else{
+        rowChecks.push(false)
+      }
+    }
+
+    if (rowChecks.includes(false)){
+      return false
+    }
+    else{
+      return true
+    }
+  }
+
+  checkSquaresInSameColumn(squares){
+
+    let columnChecks = []
+
+    for (var i=0; i < squares.length - 1; i++){
+      if (squares[i].state.coords.column === squares[i + 1].state.coords.column){
+        columnChecks.push(true)
+      }
+      else{
+        columnChecks.push(false)
+      }
+    }
+
+    if (columnChecks.includes(false)){
+      return false
+    }
+    else{
+      return true
+    }
+  }
+
+  checkSquaresConsecutive(squares){
+
+    let consecutiveChecks = []
+
+    let rowCheck = this.checkSquaresInSameRow(squares)
+
+    let columnCheck = this.checkSquaresInSameColumn(squares)
+
+    if (rowCheck){
+      for (var i=0; i < squares.length - 1; i++){
+        if ((squares[i].state.coords.column === squares[i+1].state.coords.column + 1) || (squares[i].state.coords.column === squares[i+1].state.coords.column - 1)){
+          consecutiveChecks.push(true)
+        }
+        else{
+          consecutiveChecks.push(false)
+        }
+      }
+    }
+    else if (columnCheck){
+      for (var i=0; i < squares.length - 1; i++){
+        if ((squares[i].state.coords.row === squares[i+1].state.coords.row + 1) || (squares[i].state.coords.row === squares[i+1].state.coords.row - 1)){
+          consecutiveChecks.push(true)
+        }
+        else{
+          consecutiveChecks.push(false)
+        }
+      }
+    }
+    else{
+      return false
+    }
+
+    if (consecutiveChecks.includes(false)){
+      return false
+    }
+    else{
+      return true
+    }
+
+  }
+
+  validateShipPlacement(){
+
+    let squares = this.state.currentShipPlacementSquares
+
+    let currentShip = this.state.shipsToPlace[0]
+
+    if (squares.length < currentShip){
+      this.setState({validationMessage: "Not enough squares clicked"})
+      return
+    }
+    else if  (squares.length > currentShip){
+      this.setState({validationMessage: "Too many squares clicked"})
+      return
+    }
+
+    
+    let consecutiveCheck = this.checkSquaresConsecutive(squares)
+
+
+    if (consecutiveCheck){
+      this.setState({validationMessage: "Boat placed"})
+      return
+    }
+    else{
+      this.setState({validationMessage: "Selected squares must be placed consecutively in the same row/column"})
+      return
+    }
+
+
+  }
+
+
+
+
   render(){
     return(
       <div className="container-div">
@@ -120,8 +241,14 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.primaryGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
+          currentShipPlacementSquares={this.state.currentShipPlacementSquares}
           />
         </div>
+        <ShipValidation 
+        shipToPlace={this.state.shipsToPlace[0]}
+        validationMessage={this.state.validationMessage}
+        onButtonClick={this.validateShipPlacement.bind(this)}
+        />
         <div className="tracking-board-div">
           <Board
           id = {this.state.socket}
@@ -130,6 +257,7 @@ class GameContainer extends React.Component{
           filledSquares={this.state.filledSquares}
           clickHandler={this.targetGridClickHandler.bind(this)}
           addSquare={this.addSquareToArray.bind(this)}
+          currentShipPlacementSquares={this.state.currentShipPlacementSquares}
           />
         </div>
       </div>
