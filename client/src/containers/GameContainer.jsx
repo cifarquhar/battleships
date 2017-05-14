@@ -92,10 +92,13 @@ class GameContainer extends React.Component{
       console.log("Miss!")
       this.state.guessedSquare.setState({hit: false})
     }
+    }
+    this.advanceTurn()
   }
-}
 
-
+  advanceTurn(){
+    this.setState({player1Turn: !this.state.player1Turn})
+  }
 
   addSquareToArray(square,array){
     array.push(square)
