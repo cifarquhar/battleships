@@ -14,14 +14,14 @@ class Board extends React.Component{
 
   render(){
 
-    const columnNames = ["A","B","C","D","E","F","G","H","I","J"]
+    const columnNames = ["","","","","","","","","",""]
 
     const columns = columnNames.map((element,index) => {
       return(
         <Column
         id = {this.props.socket}
         type={this.props.type}
-        columnName = {element}
+        columnName = {index + 1}
         key = {index}
         squareArray = {this.props.squareArray}
         filledSquares={this.props.filledSquares}
