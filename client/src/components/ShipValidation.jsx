@@ -10,10 +10,19 @@ class ShipValidation extends React.Component{
   }
 
 
+  setPlacementInstructions(){
+    if (this.props.shipToPlace){
+      return "Ship to place: length " + this.props.shipToPlace
+    }
+  }
+
   render(){
+
+    let placementInstruction = this.setPlacementInstructions()
+
     return(
       <div className="validation-details-div">
-        <p>Ship to place: {this.props.shipToPlace}</p>
+        <p>{placementInstruction}</p>
         <p>{this.props.validationMessage}</p>
         <button onClick={this.props.onButtonClick}>Validate Placement</button>
         <button onClick={this.props.onReadyClick}>Ready</button>

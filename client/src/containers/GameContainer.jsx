@@ -248,6 +248,7 @@ class GameContainer extends React.Component{
     console.log("checking")
     if (this.state.shipsToPlace.length === 0){
       console.log("player ready")
+      this.setState({validationMessage: "Ready to play"})
       this.setState({playerReady: true}, () => {
       let packetToSend = {id: this.state.socket, playerStatus: "ready"}
         this.socket.emit('readyNotification', packetToSend)
