@@ -1,12 +1,14 @@
 import React from "react"
 import Board from "../components/Board"
 import io from 'socket.io-client';
+import TurnDetails from "../components/TurnDetails"
 
 class GameContainer extends React.Component{
 
   constructor(props){
     super(props)
     this.state = {
+      player1Turn: true,
       primarySquares: [],
       targetSquares: [],
       previousGuesses: [],
@@ -106,6 +108,7 @@ class GameContainer extends React.Component{
   render(){
     return(
       <div className="container-div">
+        <TurnDetails player1Turn={this.state.player1Turn}/>
         <div className="primary-board-div">
           <Board
           id = {this.state.socket}
