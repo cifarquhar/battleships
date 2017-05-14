@@ -9,7 +9,7 @@ class GameContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      thisPlayerTurn: false,
+      thisPlayerTurn: null,
       shipsToPlace: [5,4,3,3,2],
       currentShipPlacementSquares: [],
       primarySquares: [],
@@ -44,7 +44,7 @@ class GameContainer extends React.Component{
 
 
   targetGridClickHandler(square){
-    if (!this.state.previousGuesses.includes(square)){
+    if (this.state.thisPlayerTurn && !this.state.previousGuesses.includes(square)){
 
     this.setState({guessedSquare: square}, () => {
       let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
@@ -101,7 +101,7 @@ class GameContainer extends React.Component{
   }
 
   advanceTurn(){
-    this.setState({player1Turn: !this.state.player1Turn})
+    this.setState({thisPlayerTurn: !this.state.thisPlayerTurn})
   }
 
   addSquareToArray(square,array){
