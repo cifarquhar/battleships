@@ -13,7 +13,8 @@ class GameContainer extends React.Component{
       socket: null,
       filledSquares: 0,
       guessedSquare: null,
-      targetedSquare: null
+      targetedSquare: null,
+      hitCount: 0
     }
 
     this.socket = io("http://localhost:3000")
@@ -82,9 +83,12 @@ class GameContainer extends React.Component{
     if (packet.id !== this.socket.id){
     if (packet.response === "hit"){
       console.log("Hit!")
+      this.setState({hitCount: this.state.hitCount + 1})
+      this.state.guessedSquare.setState({hit: true})
     }
     else if (packet.response === "miss"){
       console.log("Miss!")
+      this.state.guessedSquare.setState({hit: false})
     }
   }
 }

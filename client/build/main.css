@@ -75,4 +75,32 @@ body {
     padding     : 20px;
     background-color: #7F7F7F;
   }
+
+  .hitSquare {
+    display : block;
+    width   : 20px;
+    height  : 20px;
+    border  : 1px solid black;
+    
+    color       : black;
+    font-size   : 5em;
+    font-weight : 100;
+    text-align  : center;
+    padding     : 20px;
+    background-color: #FF0000;
+  }
+
+  .missSquare {
+    display : block;
+    width   : 20px;
+    height  : 20px;
+    border  : 1px solid black;
+    
+    color       : black;
+    font-size   : 5em;
+    font-weight : 100;
+    text-align  : center;
+    padding     : 20px;
+    background-color: #FFFFFF;
+  }
 }

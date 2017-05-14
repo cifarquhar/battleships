@@ -12,7 +12,7 @@ class Square extends React.Component{
       },
       full: false,
       className: null,
-      targeted: null
+      hit: "unknown"
     }
   }
 
@@ -23,6 +23,12 @@ class Square extends React.Component{
       this.setState({className: "boatSquare"})
     }
     else if (this.props.type === "tracking"){
+      if (this.state.hit === true){
+        this.setState({className: "hitSquare"})
+      }
+      else if (this.state.hit === false){
+        this.setState({className: "missSquare"})
+      }
       console.log("square",this.state.coords.column,this.state.coords.row,"clicked")
     }
   }
@@ -31,9 +37,15 @@ class Square extends React.Component{
     if (this.props.type === "primary"){
       this.setState({className: "seaSquare"})
     }
-    else if (this.props.type === "tracking"){
+    else if (this.props.type === "tracking" && this.state.hit === "unknown"){
       this.setState({className: "trackingSquare"})
     }
+    // else if (this.props.type === "tracking" && this.state.hit === true){
+    //   this.setState({className: "hitSquare"})
+    // }
+    // else if (this.props.type === "tracking" && this.state.hit === false){
+    //   this.setState({className: "missSquare"})
+    // }
   }
 
   componentDidMount(){
