@@ -9,7 +9,7 @@ class GameContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      player1Turn: true,
+      thisPlayerTurn: false,
       shipsToPlace: [5,4,3,3,2],
       currentShipPlacementSquares: [],
       primarySquares: [],
@@ -220,14 +220,14 @@ class GameContainer extends React.Component{
     let consecutiveCheck = this.checkSquaresConsecutive(squares)
 
 
-    if (consecutiveCheck){
+    if (consecutiveCheck && !this.state.playerReady){
       this.setState({validationMessage: "Boat placed"})
       this.setState({currentShipPlacementSquares: []})
       this.updateShipList()
       this.setState({filledSquares: this.state.filledSquares + squares.length}) 
       return
     }
-    else{
+    else if (!this.state.playerReady){
       this.setState({validationMessage: "Selected squares must be placed consecutively in the same row/column"})
       // this.state.currentShipPlacementSquares.forEach((square) => {
       //   square.setState({full: false})
@@ -245,9 +245,7 @@ class GameContainer extends React.Component{
   }
 
   checkPlayerReady(){
-    console.log("checking")
-    if (this.state.shipsToPlace.length === 0){
-      console.log("player ready")
+    if (this.state.shipsToPlace.length === 0 && !this.state.playerReady){
       this.setState({validationMessage: "Ready to play"})
       this.setState({playerReady: true}, () => {
       let packetToSend = {id: this.state.socket, playerStatus: "ready"}
@@ -258,8 +256,13 @@ class GameContainer extends React.Component{
 
   processNotification(packet){
     if (packet.id !== this.socket.id){
+      
       if (packet.playerStatus === "ready"){
-        this.setState({opponentReady: true})
+        this.setState({opponentReady: true}, () =>{
+          if (this.state.playerReady === true){
+            this.setState({thisPlayerTurn: true})
+          }
+        })
       }
     }
   }
@@ -270,7 +273,7 @@ class GameContainer extends React.Component{
   render(){
     return(
       <div className="container-div">
-        <TurnDetails player1Turn={this.state.player1Turn}/>
+        <TurnDetails playerTurn={this.state.thisPlayerTurn}/>
         <div className="primary-board-div">
           <Board
           id = {this.state.socket}

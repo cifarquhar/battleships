@@ -5,16 +5,16 @@ class TurnDetails extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      player: "Player 1"
+      message: null
     }
   }
 
   setPlayer(){
-    if (this.props.player1Turn){
-      this.setState({player: "Player 1"})
+    if (this.props.thisPlayerTurn){
+      this.setState({message: "Your turn"})
     }
     else{
-      this.setState({player: "Player 2"})
+      this.setState({message: "Opponent's turn"})
     }
   }
 
@@ -25,7 +25,7 @@ class TurnDetails extends React.Component{
   render(){
     return(
       <div className="turn-details-div">
-        <h3>{this.state.player}'s turn</h3>
+        <h3>{this.state.message}</h3>
       </div>
     )
   }
