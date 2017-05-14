@@ -20,7 +20,9 @@ class GameContainer extends React.Component{
       guessedSquare: null,
       targetedSquare: null,
       hitCount: 0,
-      validationMessage: ""
+      validationMessage: "",
+      playerReady: false,
+      opponentReady: false
     }
 
     this.socket = io("http://localhost:3000")
@@ -35,9 +37,6 @@ class GameContainer extends React.Component{
 
 
   primaryGridClickHandler(){
-  //   if (this.state.filledSquares < 17){
-  //   this.increaseFilledSquares()
-  // }
     console.log("primary grid clicked")
   }
 
@@ -223,15 +222,16 @@ class GameContainer extends React.Component{
     if (consecutiveCheck){
       this.setState({validationMessage: "Boat placed"})
       this.setState({currentShipPlacementSquares: []})
-      console.log(this.state.shipsToPlace)
       this.updateShipList()
-      console.log(this.state.shipsToPlace)
-      this.setState({filledSquares: this.state.filledSquares + squares.length})
-      
+      this.setState({filledSquares: this.state.filledSquares + squares.length}) 
       return
     }
     else{
       this.setState({validationMessage: "Selected squares must be placed consecutively in the same row/column"})
+      // this.state.currentShipPlacementSquares.forEach((square) => {
+      //   square.setState({full: false})
+      // })
+      // this.setState({currentShipPlacementSquares: []})
       return
     }
 
@@ -241,6 +241,14 @@ class GameContainer extends React.Component{
     let newShipsToPlace = this.state.shipsToPlace
     newShipsToPlace.shift()
     this.setState({shipsToPlace: newShipsToPlace})
+  }
+
+  checkPlayerReady(){
+    console.log("checking")
+    if (this.state.shipsToPlace.length === 0){
+      console.log("player ready")
+      this.setState({playerReady: true})
+    }
   }
 
 
@@ -265,6 +273,7 @@ class GameContainer extends React.Component{
         shipToPlace={this.state.shipsToPlace[0]}
         validationMessage={this.state.validationMessage}
         onButtonClick={this.validateShipPlacement.bind(this)}
+        onReadyClick={this.checkPlayerReady.bind(this)}
         />
         <div className="tracking-board-div">
           <Board
