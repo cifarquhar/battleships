@@ -22,7 +22,8 @@ class GameContainer extends React.Component{
       hitCount: 0,
       validationMessage: "",
       playerReady: false,
-      opponentReady: false
+      opponentReady: false,
+      gameWon: false
     }
 
     this.socket = io("http://localhost:3000")
@@ -34,6 +35,7 @@ class GameContainer extends React.Component{
     this.socket.on('guessMade', this.respondToGuess.bind(this))
     this.socket.on('guessResponse', this.processResponse.bind(this))
     this.socket.on('readyNotification', this.processNotification.bind(this))
+    this.socket.on("winNotification", this.processWinNotification.bind(this))
   }
 
 
@@ -90,13 +92,16 @@ class GameContainer extends React.Component{
     if (packet.response === "hit"){
       console.log("Hit!")
       this.setState({hitCount: this.state.hitCount + 1})
+      // this.state.guessedSquare.setState({value: "X"})
       this.state.guessedSquare.setState({hit: true})
     }
     else if (packet.response === "miss"){
       console.log("Miss!")
+      // this.state.guessedSquare.setState({value: "-"})
       this.state.guessedSquare.setState({hit: false})
     }
     }
+    this.checkWinner()
     this.advanceTurn()
   }
 
@@ -262,6 +267,26 @@ class GameContainer extends React.Component{
           if (this.state.playerReady === true){
             this.setState({thisPlayerTurn: true})
           }
+        })
+      }
+    }
+  }
+
+  checkWinner(){
+    if (this.state.hitCount === 17){
+      this.setState({gameWon: true}, () => {
+        let packetToSend = {id: this.state.socket, winner: true}
+        this.socket.emit('winNotification', packetToSend)
+        alert("You win!")
+      })
+    }
+  }
+
+  processWinNotification(packet){
+    if (packet.id !== this.socket.id){
+      if (packet.winner){
+        this.setState({gameWon: true}, () => {
+          alert("Opponent wins")
         })
       }
     }

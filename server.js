@@ -26,6 +26,10 @@ io.on('connection', function(socket){
       io.sockets.emit('readyNotification', packet)
     })
 
+  socket.on('winNotification', (packet) => {
+      io.sockets.emit('winNotification', packet)
+    })
+
   socket.on("disconnect", function(socket){
     console.log("user disconnected")
   })

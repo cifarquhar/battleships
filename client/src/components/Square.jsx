@@ -12,7 +12,8 @@ class Square extends React.Component{
       },
       full: false,
       className: null,
-      hit: "unknown"
+      hit: "unknown",
+      value: this.props.value
     }
   }
 
@@ -51,7 +52,7 @@ class Square extends React.Component{
     return(
       <span className={this.state.className}
       onClick = {this.handleClick.bind(this)}>
-        {this.props.value}
+        {this.state.value}
       </span>
     )
   }
