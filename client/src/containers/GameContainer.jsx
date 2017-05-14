@@ -386,7 +386,7 @@ class GameContainer extends React.Component{
     }
   }
 
-
+  // Renders the boards. Should include a div to show turn details before the second board, but this is not currently working.
 
   render(){
     return(
@@ -409,7 +409,7 @@ class GameContainer extends React.Component{
         onButtonClick={this.validateShipPlacement.bind(this)}
         onReadyClick={this.checkPlayerReady.bind(this)}
         />
-        <TurnDetails playerTurn={this.state.thisPlayerTurn}/>
+        
         <div className="tracking-board-div">
           <Board
           id = {this.state.socket}
