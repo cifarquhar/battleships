@@ -1,6 +1,5 @@
 import React from "react"
 import Column from "./Column"
-import TurnDetails from "./TurnDetails"
 
 class Board extends React.Component{
 
@@ -10,20 +9,9 @@ class Board extends React.Component{
     }
   }
 
-  checkIfShouldRenderTurnInfo(){
-    if (this.props.type === "tracking"){
-      return this.props.playerTurn
-    }
-    else{
-      return ""
-    }
-  }
-
 
 
   render(){
-
-    const detailsProps = this.checkIfShouldRenderTurnInfo()
 
     const columnNames = ["","","","","","","","","",""]
 
@@ -45,11 +33,8 @@ class Board extends React.Component{
 
 
     return(
-      <div>
-      <TurnDetails playerTurn={detailsProps}/>
       <div className="board">
         {columns}
-      </div>
       </div>
     )
   }

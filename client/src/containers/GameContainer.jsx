@@ -40,7 +40,6 @@ class GameContainer extends React.Component{
 
 
   primaryGridClickHandler(){
-    console.log("primary grid clicked")
   }
 
 
@@ -80,9 +79,6 @@ class GameContainer extends React.Component{
         this.socket.emit('guessResponse', packetToSend)
       }
 
-      console.log(this.state.targetedSquare)
-
-      console.log("guess from socket",packet.id,"received at socket",this.socket.id)
     }
   }
 
@@ -92,12 +88,10 @@ class GameContainer extends React.Component{
     if (packet.response === "hit"){
       console.log("Hit!")
       this.setState({hitCount: this.state.hitCount + 1})
-      // this.state.guessedSquare.setState({value: "X"})
       this.state.guessedSquare.setState({hit: true})
     }
     else if (packet.response === "miss"){
       console.log("Miss!")
-      // this.state.guessedSquare.setState({value: "-"})
       this.state.guessedSquare.setState({hit: false})
     }
     }
@@ -316,6 +310,7 @@ class GameContainer extends React.Component{
         onButtonClick={this.validateShipPlacement.bind(this)}
         onReadyClick={this.checkPlayerReady.bind(this)}
         />
+        <TurnDetails playerTurn={this.state.thisPlayerTurn}/>
         <div className="tracking-board-div">
           <Board
           id = {this.state.socket}

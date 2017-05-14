@@ -31,8 +31,6 @@ class Square extends React.Component{
         this.setState({className: "missSquare"})
     }
       
-    console.log("square",this.state.coords.column,this.state.coords.row,"clicked")
-  
   }
 
   componentWillMount(){
