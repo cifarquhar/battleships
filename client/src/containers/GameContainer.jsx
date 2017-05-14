@@ -48,13 +48,13 @@ class GameContainer extends React.Component{
 
     if (packet.id !== this.socket.id){
 
-      console.log(packet.coords)
-
-    let targetedSquare = this.state.primarySquares.find((square) => {
-      return square.coords == packet.coords
+    this.state.primarySquares.find((square) => {
+     if ((square.state.coords.column === packet.coords.column) && (square.state.coords.row === packet.coords.row)){
+      this.setState({targetedSquare: square})
+     }
     })
 
-    console.log(targetedSquare)
+    console.log(this.state.targetedSquare)
 
     console.log("guess from socket",packet.id,"received at socket",this.socket.id)
   }
