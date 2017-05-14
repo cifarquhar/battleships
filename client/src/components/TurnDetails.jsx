@@ -9,6 +9,8 @@ class TurnDetails extends React.Component{
     }
   }
 
+  // Should set the message to be shown to the player, although not currently working. Always shows "opponent's turn" 
+
   setPlayer(){
     if (this.props.playerTurn !== ""){
       if (this.props.playerTurn){

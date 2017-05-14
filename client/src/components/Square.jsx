@@ -17,6 +17,9 @@ class Square extends React.Component{
     }
   }
 
+
+  // When a square is clicked updates its class accordingly in order to show the result on screen
+
   handleClick(){
     this.props.clickHandler(this)
     if ((!this.state.full && this.props.filledSquares < 17) && this.props.type === "primary"){
@@ -33,6 +36,9 @@ class Square extends React.Component{
       
   }
 
+
+  // Ensures that squares are correctly identified as part of a primary or tracking grid before mounting
+
   componentWillMount(){
     if (this.props.type === "primary"){
       this.setState({className: "seaSquare"})
@@ -41,6 +47,9 @@ class Square extends React.Component{
       this.setState({className: "trackingSquare"})
     }
   }
+
+
+  // Adds primary and tracking squares to the appropriate array in the GameContainer state
 
   componentDidMount(){
     this.props.addSquare(this,this.props.squareArray)
