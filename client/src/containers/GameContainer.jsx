@@ -112,6 +112,14 @@ class GameContainer extends React.Component{
     this.setState({filledSquares: this.state.filledSquares + 1})
   }
 
+  // sortSquaresByRow(square1,square2){
+  //   return square1.state.coords.row - square2.state.coords.row
+  // }
+
+  // sortSquaresByColumn(square1,square2){
+  //   return square1.state.coords.column - square2.state.coords.column
+  // }
+
   checkSquaresInSameRow(squares){
 
     let rowChecks = []
@@ -163,6 +171,9 @@ class GameContainer extends React.Component{
     let columnCheck = this.checkSquaresInSameColumn(squares)
 
     if (rowCheck){
+      squares.sort(function(square1,square2){
+        return square1.state.coords.column - square2.state.coords.column
+      })
       for (var i=0; i < squares.length - 1; i++){
         if ((squares[i].state.coords.column === squares[i+1].state.coords.column + 1) || (squares[i].state.coords.column === squares[i+1].state.coords.column - 1)){
           consecutiveChecks.push(true)
@@ -173,6 +184,9 @@ class GameContainer extends React.Component{
       }
     }
     else if (columnCheck){
+      squares.sort(function(square1,square2){
+        return square1.state.coords.row - square2.state.coords.row
+      })
       for (var i=0; i < squares.length - 1; i++){
         if ((squares[i].state.coords.row === squares[i+1].state.coords.row + 1) || (squares[i].state.coords.row === squares[i+1].state.coords.row - 1)){
           consecutiveChecks.push(true)
