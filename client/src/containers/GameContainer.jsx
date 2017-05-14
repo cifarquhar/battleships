@@ -35,9 +35,9 @@ class GameContainer extends React.Component{
 
 
   primaryGridClickHandler(){
-    if (this.state.filledSquares < 17){
-    this.increaseFilledSquares()
-  }
+  //   if (this.state.filledSquares < 17){
+  //   this.increaseFilledSquares()
+  // }
     console.log("primary grid clicked")
   }
 
@@ -111,14 +111,6 @@ class GameContainer extends React.Component{
   increaseFilledSquares(){
     this.setState({filledSquares: this.state.filledSquares + 1})
   }
-
-  // sortSquaresByRow(square1,square2){
-  //   return square1.state.coords.row - square2.state.coords.row
-  // }
-
-  // sortSquaresByColumn(square1,square2){
-  //   return square1.state.coords.column - square2.state.coords.column
-  // }
 
   checkSquaresInSameRow(squares){
 
@@ -230,6 +222,12 @@ class GameContainer extends React.Component{
 
     if (consecutiveCheck){
       this.setState({validationMessage: "Boat placed"})
+      this.setState({currentShipPlacementSquares: []})
+      console.log(this.state.shipsToPlace)
+      this.updateShipList()
+      console.log(this.state.shipsToPlace)
+      this.setState({filledSquares: this.state.filledSquares + squares.length})
+      
       return
     }
     else{
@@ -237,7 +235,12 @@ class GameContainer extends React.Component{
       return
     }
 
+  }
 
+  updateShipList(){
+    let newShipsToPlace = this.state.shipsToPlace
+    newShipsToPlace.shift()
+    this.setState({shipsToPlace: newShipsToPlace})
   }
 
 
