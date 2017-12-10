@@ -386,11 +386,17 @@ class GameContainer extends React.Component{
     }
   }
 
+  // Check which player's turn it is for changing notifications
+
+  setTurnNotification(){
+    return this.state.thisPlayerTurn ? "Your turn" : "Opponent's turn"
+  }
+
   // Renders the boards. Should include a div to show turn details before the second board, but this is not currently working.
 
   render(){
     return(
-      <div className="container-div">
+      <div className="container">
         <div className="primary-board-div">
           <Board
           id = {this.state.socket}
@@ -405,7 +411,7 @@ class GameContainer extends React.Component{
         </div>
         <ShipValidation 
         shipToPlace={this.state.shipsToPlace[0]}
-        validationMessage={this.state.validationMessage}
+        validationMessage={(this.state.playerReady && this.state.opponentReady) ? this.setTurnNotification() : this.state.validationMessage}
         onButtonClick={this.validateShipPlacement.bind(this)}
         onReadyClick={this.checkPlayerReady.bind(this)}
         />
