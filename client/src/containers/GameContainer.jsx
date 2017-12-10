@@ -116,10 +116,13 @@ class GameContainer extends React.Component{
     }
     }
 
-    // Check if there is a winner, then advance the turn
+    // Check if there is a winner, then advance the turn if the shot missed. If the shot hits, the player should have another go.
 
     this.checkWinner()
-    this.advanceTurn()
+    
+    if (packet.response === "miss"){
+      this.advanceTurn()
+    }
   }
 
   
