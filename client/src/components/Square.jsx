@@ -6,15 +6,22 @@ class Square extends React.Component{
     super(props)
     this.state = {
       id: this.props.socket,
-      coords: {
-        column: this.props.columnName,
-        row: this.props.squareNumber
-      },
+      // coords: {
+      //   column: this.props.columnName,
+      //   row: this.props.squareNumber
+      // },
       full: false,
       className: null,
       hit: "unknown",
       value: this.props.value
     }
+
+    const coords = {
+        column: this.props.columnName,
+        row: this.props.squareNumber
+      }
+
+    this.coords = coords
   }
 
 

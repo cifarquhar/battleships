@@ -59,7 +59,7 @@ class GameContainer extends React.Component{
 
     this.guessedSquare = square
 
-      let packetToSend = {id: this.state.socket, coords: this.guessedSquare.state.coords}
+      let packetToSend = {id: this.state.socket, coords: this.guessedSquare.coords}
 
         this.previousGuesses.push(square)
 
@@ -79,7 +79,7 @@ class GameContainer extends React.Component{
       // Identify the square in the primary grid which matches the coordinates sent in the packet.Mark it as targetedSquare in state.
 
       this.state.primarySquares.find((square) => {
-       if ((square.state.coords.column === packet.coords.column) && (square.state.coords.row === packet.coords.row)){
+       if ((square.coords.column === packet.coords.column) && (square.coords.row === packet.coords.row)){
         this.setState({targetedSquare: square})
       }
     })
@@ -187,7 +187,7 @@ class GameContainer extends React.Component{
     // Compare each square in the array passed in with its successor. If both have the same value for "row" in their coordinates, add "true" to the array of check results. If not, add "false"
 
     for (var i=0; i < squares.length - 1; i++){
-      if (squares[i].state.coords.row === squares[i+1].state.coords.row){
+      if (squares[i].coords.row === squares[i+1].coords.row){
         rowChecks.push(true)
       }
       else{
@@ -214,7 +214,7 @@ class GameContainer extends React.Component{
     let columnChecks = []
 
     for (var i=0; i < squares.length - 1; i++){
-      if (squares[i].state.coords.column === squares[i + 1].state.coords.column){
+      if (squares[i].coords.column === squares[i + 1].coords.column){
         columnChecks.push(true)
       }
       else{
@@ -247,13 +247,13 @@ class GameContainer extends React.Component{
 
     if (rowCheck){
       squares.sort(function(square1,square2){
-        return square1.state.coords.column - square2.state.coords.column
+        return square1.coords.column - square2.coords.column
       })
 
       // Check that the column coordinate for each square is 1 different from its neighbour. Add "true" or "false" to the checks array as required
 
       for (var i=0; i < squares.length - 1; i++){
-        if ((squares[i].state.coords.column === squares[i+1].state.coords.column + 1) || (squares[i].state.coords.column === squares[i+1].state.coords.column - 1)){
+        if ((squares[i].coords.column === squares[i+1].coords.column + 1) || (squares[i].coords.column === squares[i+1].coords.column - 1)){
           consecutiveChecks.push(true)
         }
         else{
@@ -266,10 +266,10 @@ class GameContainer extends React.Component{
 
     else if (columnCheck){
       squares.sort(function(square1,square2){
-        return square1.state.coords.row - square2.state.coords.row
+        return square1.coords.row - square2.coords.row
       })
       for (var i=0; i < squares.length - 1; i++){
-        if ((squares[i].state.coords.row === squares[i+1].state.coords.row + 1) || (squares[i].state.coords.row === squares[i+1].state.coords.row - 1)){
+        if ((squares[i].coords.row === squares[i+1].coords.row + 1) || (squares[i].coords.row === squares[i+1].coords.row - 1)){
           consecutiveChecks.push(true)
         }
         else{
