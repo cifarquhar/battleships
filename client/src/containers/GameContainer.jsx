@@ -16,7 +16,6 @@ class GameContainer extends React.Component{
       targetSquares: [],
       socket: null,
       filledSquares: 0,
-     // guessedSquare: null,
       targetedSquare: null,
       hitCount: 0,
       validationMessage: "",
@@ -56,17 +55,15 @@ class GameContainer extends React.Component{
 
     if (this.state.thisPlayerTurn && !this.previousGuesses.includes(square)){
 
-    // Mark the guessed square in state, then construct an object (packetToSend) with the socket's ID and the square's coordinates. Add the square to the array of previous guesses before sending the packet via socket.
+    // Mark the guessed square, then construct an object (packetToSend) with the socket's ID and the square's coordinates. Add the square to the array of previous guesses before sending the packet via socket.
 
     this.guessedSquare = square
 
-    //this.setState({guessedSquare: square}, () => {
       let packetToSend = {id: this.state.socket, coords: this.guessedSquare.state.coords}
 
         this.previousGuesses.push(square)
 
         this.socket.emit('guessMade', packetToSend)
-       // })
     }
   }
 
