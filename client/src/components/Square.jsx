@@ -6,13 +6,8 @@ class Square extends React.Component{
     super(props)
     this.state = {
       id: this.props.socket,
-      // coords: {
-      //   column: this.props.columnName,
-      //   row: this.props.squareNumber
-      // },
       full: false,
       className: null,
-      hit: "unknown",
       value: this.props.value
     }
 
@@ -22,6 +17,8 @@ class Square extends React.Component{
       }
 
     this.coords = coords
+
+    this.hitState = null
   }
 
 
@@ -33,10 +30,10 @@ class Square extends React.Component{
       this.props.addSquare(this,this.props.currentShipPlacementSquares)
       this.setState({full: true, className: "boatSquare"})
     }
-    else if (this.props.type === "tracking" && this.state.hit === true){
+    else if (this.props.type === "tracking" && this.hitState === true){
         this.setState({className: "hitSquare"})
     }
-    else if (this.props.type === "tracking" && this.state.hit === false){
+    else if (this.props.type === "tracking" && this.hitState === false){
         this.setState({className: "missSquare"})
     }
       
@@ -49,7 +46,7 @@ class Square extends React.Component{
     if (this.props.type === "primary"){
       this.setState({className: "seaSquare"})
     }
-    else if (this.props.type === "tracking" && this.state.hit === "unknown"){
+    else if (this.props.type === "tracking" && !this.hitState){
       this.setState({className: "trackingSquare"})
     }
   }

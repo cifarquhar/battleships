@@ -107,11 +107,11 @@ class GameContainer extends React.Component{
     if (packet.response === "hit"){
       this.hitMessage = "Hit!"
       this.setState({hitCount: this.state.hitCount + 1})
-      this.guessedSquare.setState({hit: true})
+      this.guessedSquare.hitState = true
     }
     else if (packet.response === "miss"){
       this.hitMessage = "Miss!"
-      this.guessedSquare.setState({hit: false})
+      this.guessedSquare.hitState = false
     }
     }
 
