@@ -22,10 +22,17 @@ class ShipValidation extends React.Component{
 
     return(
       <div className="validation-details-div">
-        <p>{placementInstruction}</p>
-        <p>{this.props.validationMessage}</p>
-        <button onClick={this.props.onButtonClick}>Validate Placement</button>
-        <button onClick={this.props.onReadyClick}>Ready</button>
+        <div style={{height: "75px", width: "150px", display: "inline-block"}}>
+          <p>{this.props.validationMessage}</p>
+          <p>{this.props.hitMessage}</p>
+        </div>
+        <div style={{height: "75px", width: "200px", display: "inline-block"}}>
+          <p>{placementInstruction}</p>
+        </div>
+        <div style={{height: "75px", width: "150px", display: "inline-block"}}>
+          <button onClick={this.props.onButtonClick}>Validate Placement</button>
+          <button onClick={this.props.onReadyClick}>Ready</button>
+        </div>
       </div>
     )
   }

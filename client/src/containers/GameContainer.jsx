@@ -26,6 +26,7 @@ class GameContainer extends React.Component{
       gameWon: false
     }
 
+    this.hitMessage = ""
 
     // Socket set-up and event handlers
 
@@ -106,12 +107,12 @@ class GameContainer extends React.Component{
     // Check the response received and set the "hit" property of the square's state to the corresponding value. If the response is hit, also increment the hitCount value in state.
 
     if (packet.response === "hit"){
-      console.log("Hit!")
+      this.hitMessage = "Hit!"
       this.setState({hitCount: this.state.hitCount + 1})
       this.state.guessedSquare.setState({hit: true})
     }
     else if (packet.response === "miss"){
-      console.log("Miss!")
+      this.hitMessage = "Miss!"
       this.state.guessedSquare.setState({hit: false})
     }
     }
@@ -415,6 +416,7 @@ class GameContainer extends React.Component{
         <ShipValidation 
         shipToPlace={this.state.shipsToPlace[0]}
         validationMessage={(this.state.playerReady && this.state.opponentReady) ? this.setTurnNotification() : this.state.validationMessage}
+        hitMessage={this.hitMessage}
         onButtonClick={this.validateShipPlacement.bind(this)}
         onReadyClick={this.checkPlayerReady.bind(this)}
         />
