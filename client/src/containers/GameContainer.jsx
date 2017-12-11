@@ -14,7 +14,6 @@ class GameContainer extends React.Component{
       currentShipPlacementSquares: [],
       primarySquares: [],
       targetSquares: [],
-      previousGuesses: [],
       socket: null,
       filledSquares: 0,
       guessedSquare: null,
@@ -26,6 +25,7 @@ class GameContainer extends React.Component{
       gameWon: false
     }
 
+    this.previousGuesses = []
     this.hitMessage = ""
 
     // Socket set-up and event handlers
@@ -53,16 +53,14 @@ class GameContainer extends React.Component{
 
     // Check that it is the player's turn and that the square has not been clicked previously
 
-    if (this.state.thisPlayerTurn && !this.state.previousGuesses.includes(square)){
+    if (this.state.thisPlayerTurn && !this.previousGuesses.includes(square)){
 
     // Mark the guessed square in state, then construct an object (packetToSend) with the socket's ID and the square's coordinates. Add the square to the array of previous guesses before sending the packet via socket.
 
     this.setState({guessedSquare: square}, () => {
       let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
 
-        let newPreviousGuesses = this.state.previousGuesses
-        newPreviousGuesses.push(square)
-        this.setState({previousGuesses: newPreviousGuesses})
+        this.previousGuesses.push(square)
 
         this.socket.emit('guessMade', packetToSend)
        })
