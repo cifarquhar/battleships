@@ -24,8 +24,7 @@ class Square extends React.Component{
     this.props.clickHandler(this)
     if ((!this.state.full && this.props.filledSquares < 17) && this.props.type === "primary"){
       this.props.addSquare(this,this.props.currentShipPlacementSquares)
-      this.setState({full: true})
-      this.setState({className: "boatSquare"})
+      this.setState({full: true, className: "boatSquare"})
     }
     else if (this.props.type === "tracking" && this.state.hit === true){
         this.setState({className: "hitSquare"})
