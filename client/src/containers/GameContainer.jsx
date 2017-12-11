@@ -16,7 +16,7 @@ class GameContainer extends React.Component{
       targetSquares: [],
       socket: null,
       filledSquares: 0,
-      guessedSquare: null,
+     // guessedSquare: null,
       targetedSquare: null,
       hitCount: 0,
       validationMessage: "",
@@ -25,6 +25,7 @@ class GameContainer extends React.Component{
       gameWon: false
     }
 
+    this.guessedSquare = null
     this.previousGuesses = []
     this.hitMessage = ""
 
@@ -57,13 +58,15 @@ class GameContainer extends React.Component{
 
     // Mark the guessed square in state, then construct an object (packetToSend) with the socket's ID and the square's coordinates. Add the square to the array of previous guesses before sending the packet via socket.
 
-    this.setState({guessedSquare: square}, () => {
-      let packetToSend = {id: this.state.socket, coords: this.state.guessedSquare.state.coords}
+    this.guessedSquare = square
+
+    //this.setState({guessedSquare: square}, () => {
+      let packetToSend = {id: this.state.socket, coords: this.guessedSquare.state.coords}
 
         this.previousGuesses.push(square)
 
         this.socket.emit('guessMade', packetToSend)
-       })
+       // })
     }
   }
 
@@ -107,11 +110,11 @@ class GameContainer extends React.Component{
     if (packet.response === "hit"){
       this.hitMessage = "Hit!"
       this.setState({hitCount: this.state.hitCount + 1})
-      this.state.guessedSquare.setState({hit: true})
+      this.guessedSquare.setState({hit: true})
     }
     else if (packet.response === "miss"){
       this.hitMessage = "Miss!"
-      this.state.guessedSquare.setState({hit: false})
+      this.guessedSquare.setState({hit: false})
     }
     }
 
