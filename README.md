@@ -2,6 +2,8 @@
 
 An implementation of the board game Battleships using the React JavaScript library, along with socket.io, npm and node express server. 
 
+*__Please note:__ This is a work in progress. The game works as per the standard boardgame rules, but there are some issues still to be addressed. The two most obvious are handling clicks on the tracking board (a second click is required to change the colour of the square, although the response form the other player is received immediately) and errors in initial ship placement (in most cases the user has to restart completely, losing any ships which were correctly placed). In the back-end, there are changes to be made in terms of file structure, in particular moving the validation functions into their own file.*
+
 
 ## Setup
 
@@ -9,10 +11,7 @@ First, give start.sh permission to run using:
 
 *chmod 755 start.sh*
 
-Execute the start.sh script, navigate to the browser tabs it opens and refresh them. It may be necessary to run webpack in order to bundle the files. To do so, open a new terminal tab, navigate to the client folder and use the command:
-
-*npm start*
-
+Execute the start.sh script and navigate to the browser tabs it opens (it may be necessary to refresh one/both of them). From there click on the top board to place ships and make sure each is in a valid position using the "validate placement" button. Once all ships are placed click the "ready" button and wait for your opponent to do the same.
 
 ## Primary Board
 
@@ -37,4 +36,4 @@ Once all ships are placed the player can click the "ready" button to indicate th
 
 ## Determining A Winner
 
-Players take alternating turns, with the switch happening as part of processing the response to a guess. Before the turn switches the players hit counter is checked, and if it has reached 17 the player is declared the winner. Both players are notified by pop-ups.
+If a player guesses a square which contains an opponent's ship they score a hit, and make another guess. If they miss their turn is over. The change of turns is handled on the back end as part of processing the response to a guess. Before the turn switches the players hit counter is checked, and if it has reached 17 the player is declared the winner. Both players are notified by pop-ups.

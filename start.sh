@@ -6,6 +6,9 @@ npm install
 echo "installing npm modules..."
 cd "client"
 npm install
+
+echo "bundling files..."
+npm run webpack
 cd ".."
 
 echo "opening browser windows..."
